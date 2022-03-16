@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+export default function App() {
+    const [isAble, setIsAble] = useState(true);
+    const [count, setCount] = useState(0);
+
+    const handleCount = () => {
+        if (!isAble) return;
+        setCount(count + 1);
+    };
+
+    const handleClear = () => {
+        setCount(0);
+    };
+
+    const handleEnable = () => {
+        setIsAble(!isAble);
+    };
+
+    return (
+        <ButtonGroup
+            orientation="vertical"
+            aria-label="vertical outlined button group"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <Button key="one" onClick={handleCount}>
+                CLICK:{count}
+            </Button>
+            <Button key="two" onClick={handleClear}>
+                CLEAR
+            </Button>
+            <Button
+                key="three"
+                onClick={handleEnable}
+                variant={isAble ? 'outlined' : 'contained'}
+            >
+                {isAble ? 'DISABLE' : 'ABLE'}
+            </Button>
+        </ButtonGroup>
+    );
 }
-
-export default App;
